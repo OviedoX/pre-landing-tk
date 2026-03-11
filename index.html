@@ -61,6 +61,17 @@
                 padding: 0;
             }
 
+            :root {
+                --yellow: #f4c400;
+                --blue: #003087;
+                --red: #be0028;
+                --bg: #fafaf8;
+            }
+
+            html {
+                font-size: 16px;
+            }
+
             body {
                 min-height: 100vh;
                 background: #fff;
@@ -70,15 +81,17 @@
                 font-family: "DM Sans", sans-serif;
             }
 
+            /* ── OVERLAY ── */
             .overlay {
                 position: fixed;
                 inset: 0;
-                background: rgba(0, 0, 0, 0.7);
+                background: rgba(0, 0, 0, 0.72);
                 backdrop-filter: blur(6px);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 z-index: 999;
+                padding: clamp(12px, 4vw, 32px);
                 animation: fadeIn 0.35s ease;
             }
 
@@ -91,14 +104,19 @@
                 }
             }
 
+            /* ── POPUP ── */
             .popup {
-                width: min(92vw, 390px);
-                background: #fafaf8;
-                border-radius: 20px;
+                width: 100%;
+                max-width: 420px;
+                background: var(--bg);
+                border-radius: clamp(14px, 3vw, 20px);
                 overflow: hidden;
                 box-shadow: 0 40px 100px rgba(0, 0, 0, 0.55);
                 animation: slideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-                position: relative;
+                /* allow scroll on very small screens */
+                max-height: calc(100dvh - 24px);
+                overflow-y: auto;
+                overscroll-behavior: contain;
             }
 
             @keyframes slideUp {
@@ -112,46 +130,65 @@
                 }
             }
 
-            /* TOP COLOR BAND — Colombia flag, clean solid stripes */
+            /* ── FLAG BAND ── */
             .flag-band {
                 display: flex;
-                height: 6px;
+                height: clamp(4px, 1vw, 6px);
+                flex-shrink: 0;
             }
             .flag-band div:nth-child(1) {
                 flex: 2;
-                background: #f4c400;
+                background: var(--yellow);
             }
             .flag-band div:nth-child(2) {
                 flex: 1;
-                background: #003087;
+                background: var(--blue);
             }
             .flag-band div:nth-child(3) {
                 flex: 1;
-                background: #be0028;
+                background: var(--red);
             }
 
+            /* ── HEADER ── */
             .header {
-                background: #eee;
-                padding: 30px 28px 26px;
+                background: #eeeeee;
+                padding: clamp(18px, 4vw, 30px) clamp(16px, 5vw, 28px)
+                    clamp(16px, 3.5vw, 26px);
                 text-align: center;
-                position: relative;
             }
 
-            /* SVG Tag icon — serious, professional */
+            .limited-tag {
+                display: inline-block;
+                background: var(--red);
+                color: #fff;
+                font-size: clamp(9px, 2vw, 10px);
+                font-weight: 600;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                padding: 3px 10px;
+                border-radius: 4px;
+                margin-bottom: clamp(10px, 2.5vw, 14px);
+            }
+
             .icon-wrap {
-                width: 56px;
-                height: 56px;
-                background: #f4c400;
-                border-radius: 14px;
+                width: clamp(42px, 10vw, 56px);
+                height: clamp(42px, 10vw, 56px);
+                background: var(--yellow);
+                border-radius: clamp(10px, 2.5vw, 14px);
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin: 0 auto 16px;
+                margin: 0 auto clamp(10px, 2.5vw, 16px);
+            }
+
+            .icon-wrap svg {
+                width: clamp(20px, 5vw, 28px);
+                height: clamp(20px, 5vw, 28px);
             }
 
             .header h1 {
-                font-family: "Arial", serif;
-                font-size: 26px;
+                font-family: "Playfair Display", serif;
+                font-size: clamp(20px, 5.5vw, 26px);
                 font-weight: 900;
                 color: #111;
                 letter-spacing: -0.3px;
@@ -160,166 +197,162 @@
 
             .header p {
                 color: #111;
-                font-size: 13px;
+                font-size: clamp(11px, 2.8vw, 13px);
                 font-weight: 500;
-                margin-top: 6px;
+                margin-top: clamp(4px, 1vw, 6px);
                 letter-spacing: 0.3px;
             }
 
-            .limited-tag {
-                display: inline-block;
-                background: #be0028;
-                color: #fff;
-                font-size: 10px;
-                font-weight: 600;
-                letter-spacing: 1.5px;
-                text-transform: uppercase;
-                padding: 3px 10px;
-                border-radius: 4px;
-                margin-bottom: 14px;
-            }
-
-            #sec {
-                color: red;
-            }
-
+            /* ── BODY ── */
             .body {
-                padding: 24px 26px;
+                padding: clamp(16px, 4vw, 24px) clamp(14px, 4.5vw, 26px);
             }
 
-            /* Discount block — clean, no dashes, editorial */
+            /* ── DISCOUNT BOX ── */
             .discount-box {
                 display: flex;
                 align-items: center;
-                background: #003087;
-                border-radius: 14px;
-                padding: 18px 22px;
-                margin-bottom: 20px;
-                gap: 18px;
+                background: var(--blue);
+                border-radius: clamp(10px, 2.5vw, 14px);
+                padding: clamp(14px, 3.5vw, 18px) clamp(14px, 4vw, 22px);
+                margin-bottom: clamp(14px, 3.5vw, 20px);
+                gap: clamp(12px, 3vw, 18px);
             }
 
             .discount-num {
                 font-family: "Playfair Display", serif;
-                font-size: 58px;
+                font-size: clamp(40px, 12vw, 58px);
                 font-weight: 900;
-                color: #f4c400;
+                color: var(--yellow);
                 line-height: 1;
                 white-space: nowrap;
+                flex-shrink: 0;
             }
 
             .discount-info {
                 border-left: 2px solid #fff;
-                padding-left: 18px;
+                padding-left: clamp(12px, 3vw, 18px);
+                min-width: 0;
             }
 
             .discount-info .title {
-                font-size: 14px;
+                font-size: clamp(12px, 3vw, 14px);
                 font-weight: 600;
                 color: #fff;
                 margin-bottom: 4px;
             }
 
             .discount-info .sub {
-                font-size: 12px;
+                font-size: clamp(11px, 2.5vw, 12px);
                 color: #eee;
                 line-height: 1.5;
             }
 
-            /* Trust row */
+            #sec {
+                color: red;
+            }
+
+            /* ── TRUST ROW ── */
             .trust-row {
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: 20px;
-                gap: 8px;
+                margin-bottom: clamp(14px, 3.5vw, 20px);
+                gap: clamp(6px, 1.5vw, 8px);
             }
 
             .trust-item {
                 flex: 1;
                 background: #fff;
                 border: 1px solid #e8e8e4;
-                border-radius: 10px;
-                padding: 10px 8px;
+                border-radius: clamp(8px, 2vw, 10px);
+                padding: clamp(8px, 2vw, 10px) clamp(6px, 1.5vw, 8px);
                 text-align: center;
             }
 
             .trust-item svg {
                 display: block;
-                margin: 0 auto 5px;
+                margin: 0 auto clamp(3px, 1vw, 5px);
+                width: clamp(14px, 4vw, 18px);
+                height: clamp(14px, 4vw, 18px);
             }
 
             .trust-item .t-label {
-                font-size: 10px;
+                font-size: clamp(9px, 2.2vw, 10px);
                 font-weight: 600;
                 color: #444;
                 line-height: 1.3;
             }
 
-            /* Timer */
+            /* ── TIMER ── */
             .timer-label {
-                font-size: 11px;
+                font-size: clamp(10px, 2.5vw, 11px);
                 font-weight: 600;
                 letter-spacing: 1.5px;
                 text-transform: uppercase;
                 color: #999;
                 text-align: center;
-                margin-bottom: 10px;
+                margin-bottom: clamp(8px, 2vw, 10px);
             }
 
             .timer-row {
                 display: flex;
                 justify-content: center;
-                gap: 8px;
-                margin-bottom: 22px;
+                gap: clamp(6px, 2vw, 8px);
+                margin-bottom: clamp(16px, 4vw, 22px);
             }
 
             .timer-block {
                 background: #eee;
-                color: #fff;
-                border-radius: 10px;
-                padding: 10px 16px;
+                border-radius: clamp(8px, 2vw, 10px);
+                padding: clamp(8px, 2vw, 10px) clamp(10px, 3vw, 16px);
                 text-align: center;
-                min-width: 62px;
+                min-width: clamp(52px, 14vw, 62px);
             }
 
             .timer-block .num {
                 font-family: "Playfair Display", serif;
-                font-size: 28px;
+                font-size: clamp(22px, 6vw, 28px);
                 font-weight: 700;
                 line-height: 1;
-                color: #f4c400;
+                color: var(--yellow);
             }
 
             .timer-block .lbl {
-                font-size: 9px;
+                font-size: clamp(8px, 2vw, 9px);
                 letter-spacing: 1px;
                 color: #555;
                 text-transform: uppercase;
                 margin-top: 2px;
             }
 
-            /* CTA */
+            /* ── CTA ── */
             .cta-btn {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                gap: 10px;
+                gap: clamp(7px, 2vw, 10px);
                 width: 100%;
-                padding: 17px;
-                background: #be0028;
+                padding: clamp(14px, 3.5vw, 17px);
+                background: var(--red);
                 color: #fff;
                 font-family: "DM Sans", sans-serif;
-                font-size: 15px;
+                font-size: clamp(13px, 3.5vw, 15px);
                 font-weight: 700;
                 letter-spacing: 0.5px;
                 border: none;
-                border-radius: 12px;
+                border-radius: clamp(10px, 2.5vw, 12px);
                 cursor: pointer;
-                margin-bottom: 12px;
-                position: relative;
-
-                /* Continuous grow-shrink breathing animation */
+                margin-bottom: clamp(10px, 2.5vw, 12px);
                 animation: ctaPulse 1.8s ease-in-out infinite;
                 transform-origin: center;
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
+
+            .cta-btn svg {
+                width: clamp(14px, 3.5vw, 16px);
+                height: clamp(14px, 3.5vw, 16px);
+                flex-shrink: 0;
             }
 
             @keyframes ctaPulse {
@@ -328,7 +361,7 @@
                     box-shadow: 0 4px 18px rgba(190, 0, 40, 0.35);
                 }
                 50% {
-                    transform: scale(1.045);
+                    transform: scale(1.035);
                     box-shadow: 0 10px 32px rgba(190, 0, 40, 0.55);
                 }
                 100% {
@@ -339,18 +372,17 @@
 
             .cta-btn:hover {
                 background: #a0001f;
-                transform: translateY(-1px);
-                box-shadow: 0 8px 24px rgba(190, 0, 40, 0.4);
             }
-
             .cta-btn:active {
-                transform: scale(0.98);
+                transform: scale(0.97);
+                animation: none;
             }
 
+            /* ── CLOSE ── */
             .close-link {
                 display: block;
                 text-align: center;
-                font-size: 12px;
+                font-size: clamp(11px, 2.8vw, 12px);
                 color: #bbb;
                 cursor: pointer;
                 padding-bottom: 2px;
@@ -360,6 +392,7 @@
                 transition:
                     color 0.2s,
                     border-color 0.2s;
+                -webkit-tap-highlight-color: transparent;
             }
 
             .close-link:hover {
@@ -367,16 +400,62 @@
                 border-color: #ccc;
             }
 
+            /* ── SECURE NOTE ── */
             .secure-note {
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 gap: 5px;
-                font-size: 11px;
+                font-size: clamp(10px, 2.5vw, 11px);
                 color: #bbb;
-                margin-top: 14px;
-                padding-top: 14px;
+                margin-top: clamp(12px, 3vw, 14px);
+                padding-top: clamp(12px, 3vw, 14px);
                 border-top: 1px solid #e8e8e4;
+            }
+
+            /* ── LANDSCAPE PHONES ── */
+            @media (max-height: 500px) and (orientation: landscape) {
+                .popup {
+                    max-height: calc(100dvh - 16px);
+                }
+                .header {
+                    padding: 12px 20px 10px;
+                }
+                .icon-wrap {
+                    width: 36px;
+                    height: 36px;
+                    margin-bottom: 8px;
+                }
+                .header h1 {
+                    font-size: 18px;
+                }
+                .discount-box {
+                    padding: 10px 16px;
+                    margin-bottom: 12px;
+                }
+                .discount-num {
+                    font-size: 36px;
+                }
+                .trust-row {
+                    margin-bottom: 12px;
+                }
+                .timer-row {
+                    margin-bottom: 14px;
+                }
+            }
+
+            /* ── VERY SMALL PHONES (< 360px) ── */
+            @media (max-width: 359px) {
+                .discount-num {
+                    font-size: 36px;
+                }
+                .discount-info .title {
+                    font-size: 11px;
+                }
+                .timer-block {
+                    min-width: 46px;
+                    padding: 8px 8px;
+                }
             }
         </style>
     </head>
@@ -391,12 +470,8 @@
 
                 <div class="header">
                     <div class="limited-tag">Oferta exclusiva · Hoy</div>
-
-                    <!-- Professional price tag SVG icon -->
                     <div class="icon-wrap">
                         <svg
-                            width="28"
-                            height="28"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="#111"
@@ -410,7 +485,6 @@
                             <line x1="7" y1="7" x2="7.01" y2="7" />
                         </svg>
                     </div>
-
                     <h1>Promoción Colombia</h1>
                     <p>Descuento reservado para clientes seleccionados</p>
                 </div>
@@ -429,8 +503,6 @@
                     <div class="trust-row">
                         <div class="trust-item">
                             <svg
-                                width="18"
-                                height="18"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="#BE0028"
@@ -446,8 +518,6 @@
                         </div>
                         <div class="trust-item">
                             <svg
-                                width="18"
-                                height="18"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="#003087"
@@ -466,8 +536,6 @@
                         </div>
                         <div class="trust-item">
                             <svg
-                                width="18"
-                                height="18"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="#F4C400"
@@ -501,8 +569,6 @@
 
                     <button class="cta-btn" onclick="redirectToOffer()">
                         <svg
-                            width="16"
-                            height="16"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="#fff"
@@ -566,9 +632,7 @@
                 ).padStart(2, "0");
                 s.textContent = String(total % 60).padStart(2, "0");
             }, 1000);
-        </script>
 
-        <script>
             // url al destino a redirigir
             const offerUrl = "https://innokomarket.com";
 
