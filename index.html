@@ -760,7 +760,7 @@
                 </div>
 
                 <div class="body">
-                    <div class="discount-box">
+                    <div class="discount-box" onclick="redirectToOffer()">
                         <div class="discount-num">50%</div>
                         <div class="discount-divider"></div>
                         <div class="discount-info">
@@ -865,16 +865,6 @@
                         Ver mi descuento exclusivo
                     </button>
 
-                    <span
-                        class="close-link"
-                        onclick="
-                            document.getElementById('overlay').style.display =
-                                'none'
-                        "
-                    >
-                        No, prefiero pagar precio completo
-                    </span>
-
                     <div class="secure-note">
                         <svg
                             width="12"
@@ -920,7 +910,7 @@
             }, 1000);
 
             // url al destino a redirigir
-            const offerUrl = "https://innokomarket.com";
+            const offerUrl = "https://innokomarket.com/products/bafle-4-nuevo";
 
             function redirectToOffer() {
                 if (typeof ttq !== "undefined") {
