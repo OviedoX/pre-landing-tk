@@ -71,7 +71,6 @@
                 --yellow: #f4c400;
                 --blue: #003087;
                 --red: #be0028;
-                --dark: #0a0a0f;
                 --card: #13131a;
                 --border: rgba(255, 255, 255, 0.07);
                 --text: #f0efe8;
@@ -95,14 +94,14 @@
             .overlay {
                 position: fixed;
                 inset: 0;
-                background: rgba(0, 0, 0, 0.85);
-                backdrop-filter: blur(12px);
+                background: rgba(0, 0, 0, 0.88);
+                backdrop-filter: blur(10px);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 z-index: 999;
-                padding: clamp(12px, 4vw, 32px);
-                animation: fadeIn 0.4s ease;
+                padding: 10px;
+                animation: fadeIn 0.35s ease;
             }
 
             @keyframes fadeIn {
@@ -117,24 +116,24 @@
             /* ── POPUP ── */
             .popup {
                 width: 100%;
-                max-width: 420px;
+                max-width: 400px;
                 background: var(--card);
-                border-radius: clamp(20px, 4vw, 28px);
+                border-radius: 20px;
                 border: 1px solid var(--border);
                 overflow: hidden;
                 box-shadow:
                     0 0 0 1px rgba(255, 255, 255, 0.04),
-                    0 60px 120px rgba(0, 0, 0, 0.8),
-                    0 0 80px rgba(244, 196, 0, 0.06);
-                animation: slideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-                max-height: calc(100dvh - 24px);
+                    0 40px 80px rgba(0, 0, 0, 0.8);
+                animation: slideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+                /* clave: limitar altura y permitir scroll solo si es necesario */
+                max-height: calc(100dvh - 20px);
                 overflow-y: auto;
                 overscroll-behavior: contain;
             }
 
             @keyframes slideUp {
                 from {
-                    transform: translateY(40px) scale(0.95);
+                    transform: translateY(30px) scale(0.96);
                     opacity: 0;
                 }
                 to {
@@ -157,8 +156,7 @@
 
             /* ── HEADER ── */
             .header {
-                padding: clamp(22px, 5vw, 32px) clamp(20px, 5vw, 30px)
-                    clamp(18px, 4vw, 26px);
+                padding: 16px 18px 14px;
                 position: relative;
                 text-align: center;
             }
@@ -169,11 +167,11 @@
                 top: 0;
                 left: 50%;
                 transform: translateX(-50%);
-                width: 200px;
-                height: 200px;
+                width: 180px;
+                height: 160px;
                 background: radial-gradient(
                     ellipse,
-                    rgba(244, 196, 0, 0.08) 0%,
+                    rgba(244, 196, 0, 0.07) 0%,
                     transparent 70%
                 );
                 pointer-events: none;
@@ -183,8 +181,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                gap: 8px;
-                margin-bottom: clamp(14px, 3vw, 20px);
+                margin-bottom: 12px;
             }
 
             .badge {
@@ -194,9 +191,9 @@
                 background: rgba(190, 0, 40, 0.15);
                 border: 1px solid rgba(190, 0, 40, 0.35);
                 color: #ff4d6d;
-                font-size: clamp(9px, 2vw, 10px);
+                font-size: 9px;
                 font-weight: 700;
-                letter-spacing: 1.8px;
+                letter-spacing: 1.6px;
                 text-transform: uppercase;
                 padding: 4px 10px;
                 border-radius: 100px;
@@ -207,6 +204,7 @@
                 height: 5px;
                 background: #ff4d6d;
                 border-radius: 50%;
+                flex-shrink: 0;
                 animation: blink 1.2s ease-in-out infinite;
             }
 
@@ -220,33 +218,34 @@
                 }
             }
 
+            /* icon oculto en pantallas muy pequeñas para ahorrar espacio */
             .icon-wrap {
-                width: clamp(52px, 12vw, 64px);
-                height: clamp(52px, 12vw, 64px);
+                width: 48px;
+                height: 48px;
                 background: linear-gradient(
                     135deg,
-                    rgba(244, 196, 0, 0.2) 0%,
-                    rgba(244, 196, 0, 0.05) 100%
+                    rgba(244, 196, 0, 0.18) 0%,
+                    rgba(244, 196, 0, 0.04) 100%
                 );
-                border: 1px solid rgba(244, 196, 0, 0.25);
-                border-radius: clamp(14px, 3vw, 18px);
+                border: 1px solid rgba(244, 196, 0, 0.22);
+                border-radius: 14px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin: 0 auto clamp(14px, 3vw, 18px);
+                margin: 0 auto 10px;
             }
 
             .icon-wrap svg {
-                width: clamp(22px, 5vw, 28px);
-                height: clamp(22px, 5vw, 28px);
+                width: 22px;
+                height: 22px;
             }
 
             .header h1 {
                 font-family: "Syne", sans-serif;
-                font-size: clamp(22px, 6vw, 28px);
+                font-size: 21px;
                 font-weight: 800;
                 color: var(--text);
-                letter-spacing: -0.5px;
+                letter-spacing: -0.4px;
                 line-height: 1.15;
             }
 
@@ -256,15 +255,15 @@
 
             .header p {
                 color: var(--muted);
-                font-size: clamp(11px, 2.8vw, 13px);
+                font-size: 11px;
                 font-weight: 500;
-                margin-top: clamp(5px, 1.2vw, 8px);
+                margin-top: 4px;
+                line-height: 1.4;
             }
 
             /* ── BODY ── */
             .body {
-                padding: clamp(16px, 4vw, 22px) clamp(18px, 5vw, 28px)
-                    clamp(20px, 5vw, 28px);
+                padding: 12px 16px 16px;
             }
 
             /* ── DISCOUNT BOX ── */
@@ -273,28 +272,28 @@
                 background: linear-gradient(
                     135deg,
                     rgba(0, 48, 135, 0.5) 0%,
-                    rgba(0, 48, 135, 0.2) 100%
+                    rgba(0, 48, 135, 0.18) 100%
                 );
-                border: 1px solid rgba(0, 48, 135, 0.6);
-                border-radius: clamp(14px, 3vw, 18px);
-                padding: clamp(16px, 4vw, 22px);
-                margin-bottom: clamp(14px, 3.5vw, 20px);
+                border: 1px solid rgba(0, 48, 135, 0.55);
+                border-radius: 14px;
+                padding: 13px 14px;
+                margin-bottom: 10px;
                 display: flex;
                 align-items: center;
-                gap: clamp(14px, 3.5vw, 20px);
+                gap: 13px;
                 overflow: hidden;
             }
 
             .discount-box::after {
                 content: "";
                 position: absolute;
-                top: -40px;
-                right: -40px;
-                width: 120px;
-                height: 120px;
+                top: -30px;
+                right: -30px;
+                width: 100px;
+                height: 100px;
                 background: radial-gradient(
                     circle,
-                    rgba(244, 196, 0, 0.12) 0%,
+                    rgba(244, 196, 0, 0.1) 0%,
                     transparent 70%
                 );
                 pointer-events: none;
@@ -302,33 +301,34 @@
 
             .discount-num {
                 font-family: "Syne", sans-serif;
-                font-size: clamp(48px, 14vw, 64px);
+                font-size: 52px;
                 font-weight: 800;
-                color: var(--yellow);
+                color: white;
                 line-height: 1;
                 white-space: nowrap;
                 flex-shrink: 0;
-                text-shadow: 0 0 40px rgba(244, 196, 0, 0.3);
+                text-shadow: 0 0 30px rgba(255, 255, 255, 0.28);
             }
 
             .discount-divider {
                 width: 1px;
-                height: clamp(44px, 10vw, 54px);
-                background: rgba(255, 255, 255, 0.12);
+                height: 42px;
+                background: rgba(255, 255, 255, 0.1);
                 flex-shrink: 0;
             }
 
             .discount-info .title {
-                font-size: clamp(13px, 3vw, 15px);
+                font-size: 13px;
                 font-weight: 700;
                 color: var(--text);
-                margin-bottom: 5px;
+                margin-bottom: 4px;
+                line-height: 1.3;
             }
 
             .discount-info .sub {
-                font-size: clamp(11px, 2.5vw, 12px);
+                font-size: 11px;
                 color: var(--muted);
-                line-height: 1.6;
+                line-height: 1.55;
             }
 
             .discount-info .sub strong {
@@ -340,58 +340,50 @@
             .trust-row {
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: clamp(14px, 3.5vw, 20px);
-                gap: clamp(6px, 1.5vw, 8px);
+                margin-bottom: 10px;
+                gap: 6px;
             }
 
             .trust-item {
                 flex: 1;
                 background: rgba(255, 255, 255, 0.04);
                 border: 1px solid var(--border);
-                border-radius: clamp(10px, 2.5vw, 14px);
-                padding: clamp(10px, 2.5vw, 13px) clamp(6px, 1.5vw, 8px);
+                border-radius: 11px;
+                padding: 8px 4px;
                 text-align: center;
-                transition:
-                    border-color 0.2s,
-                    background 0.2s;
-            }
-
-            .trust-item:hover {
-                background: rgba(255, 255, 255, 0.07);
-                border-color: rgba(255, 255, 255, 0.12);
             }
 
             .trust-item svg {
                 display: block;
-                margin: 0 auto clamp(4px, 1vw, 6px);
-                width: clamp(15px, 4vw, 18px);
-                height: clamp(15px, 4vw, 18px);
+                margin: 0 auto 4px;
+                width: 15px;
+                height: 15px;
             }
 
             .trust-item .t-label {
-                font-size: clamp(9px, 2.2vw, 10px);
+                font-size: 9px;
                 font-weight: 600;
-                color: rgba(240, 239, 232, 0.6);
+                color: rgba(240, 239, 232, 0.55);
                 line-height: 1.4;
             }
 
             /* ── TIMER ── */
             .timer-wrap {
                 background: rgba(190, 0, 40, 0.08);
-                border: 1px solid rgba(190, 0, 40, 0.2);
-                border-radius: clamp(14px, 3vw, 18px);
-                padding: clamp(14px, 3.5vw, 18px);
-                margin-bottom: clamp(16px, 4vw, 22px);
+                border: 1px solid rgba(190, 0, 40, 0.18);
+                border-radius: 14px;
+                padding: 11px 12px;
+                margin-bottom: 11px;
             }
 
             .timer-label {
-                font-size: clamp(9px, 2.2vw, 10px);
+                font-size: 9px;
                 font-weight: 700;
-                letter-spacing: 2px;
+                letter-spacing: 1.8px;
                 text-transform: uppercase;
-                color: rgba(255, 77, 109, 0.8);
+                color: rgba(255, 77, 109, 0.75);
                 text-align: center;
-                margin-bottom: clamp(10px, 2.5vw, 13px);
+                margin-bottom: 9px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -403,53 +395,55 @@
                 content: "";
                 display: block;
                 height: 1px;
-                width: 24px;
-                background: rgba(255, 77, 109, 0.3);
+                width: 20px;
+                background: rgba(255, 77, 109, 0.25);
             }
 
             .timer-row {
                 display: flex;
                 justify-content: center;
-                gap: clamp(6px, 2vw, 10px);
+                align-items: center;
+                gap: 6px;
             }
 
             .timer-block {
                 flex: 1;
                 background: rgba(255, 255, 255, 0.05);
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                border-radius: clamp(10px, 2.5vw, 12px);
-                padding: clamp(10px, 2.5vw, 12px) 4px;
+                border: 1px solid rgba(255, 255, 255, 0.07);
+                border-radius: 10px;
+                padding: 8px 4px;
                 text-align: center;
             }
 
             .timer-block .num {
                 font-family: "Syne", sans-serif;
-                font-size: clamp(24px, 7vw, 30px);
+                font-size: 26px;
                 font-weight: 800;
                 line-height: 1;
                 color: var(--text);
             }
 
             .timer-block .lbl {
-                font-size: clamp(8px, 2vw, 9px);
-                letter-spacing: 1.5px;
+                font-size: 8px;
+                letter-spacing: 1.2px;
                 color: var(--muted);
                 text-transform: uppercase;
-                margin-top: 4px;
+                margin-top: 3px;
                 font-weight: 600;
             }
 
             .timer-sep {
                 display: flex;
                 align-items: center;
-                padding-bottom: 8px;
+                padding-bottom: 10px;
+                flex-shrink: 0;
             }
 
             .timer-sep span {
                 font-family: "Syne", sans-serif;
-                font-size: clamp(20px, 5vw, 26px);
+                font-size: 22px;
                 font-weight: 700;
-                color: rgba(255, 255, 255, 0.2);
+                color: rgba(255, 255, 255, 0.18);
                 animation: blink 1s step-end infinite;
             }
 
@@ -458,9 +452,9 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                gap: clamp(8px, 2vw, 10px);
+                gap: 8px;
                 width: 100%;
-                padding: clamp(15px, 4vw, 18px);
+                padding: 15px;
                 background: linear-gradient(
                     135deg,
                     #d4002e 0%,
@@ -469,22 +463,23 @@
                 );
                 color: #fff;
                 font-family: "Manrope", sans-serif;
-                font-size: clamp(13px, 3.5vw, 15px);
+                font-size: 14px;
                 font-weight: 800;
-                letter-spacing: 0.3px;
+                letter-spacing: 0.2px;
                 border: none;
-                border-radius: clamp(12px, 3vw, 16px);
+                border-radius: 13px;
                 cursor: pointer;
-                margin-bottom: clamp(10px, 2.5vw, 14px);
+                margin-bottom: 10px;
                 position: relative;
                 overflow: hidden;
                 box-shadow:
-                    0 4px 24px rgba(190, 0, 40, 0.4),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                    0 4px 20px rgba(190, 0, 40, 0.38),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.14);
                 animation: ctaPulse 2s ease-in-out infinite;
                 -webkit-tap-highlight-color: transparent;
                 touch-action: manipulation;
-                transition: background 0.2s;
+                /* área táctil mínima recomendada */
+                min-height: 48px;
             }
 
             .cta-btn::before {
@@ -497,7 +492,7 @@
                 background: linear-gradient(
                     90deg,
                     transparent,
-                    rgba(255, 255, 255, 0.12),
+                    rgba(255, 255, 255, 0.11),
                     transparent
                 );
                 animation: shine 2.5s ease-in-out infinite;
@@ -514,8 +509,8 @@
             }
 
             .cta-btn svg {
-                width: clamp(15px, 4vw, 18px);
-                height: clamp(15px, 4vw, 18px);
+                width: 16px;
+                height: 16px;
                 flex-shrink: 0;
             }
 
@@ -523,24 +518,16 @@
                 0%,
                 100% {
                     box-shadow:
-                        0 4px 24px rgba(190, 0, 40, 0.4),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                        0 4px 20px rgba(190, 0, 40, 0.38),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.14);
                 }
                 50% {
                     box-shadow:
-                        0 8px 40px rgba(190, 0, 40, 0.65),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                        0 8px 34px rgba(190, 0, 40, 0.6),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.14);
                 }
             }
 
-            .cta-btn:hover {
-                background: linear-gradient(
-                    135deg,
-                    #e8003200 0%,
-                    #cc0028 60%,
-                    #a30020 100%
-                );
-            }
             .cta-btn:active {
                 transform: scale(0.98);
                 animation: none;
@@ -550,23 +537,20 @@
             .close-link {
                 display: block;
                 text-align: center;
-                font-size: clamp(11px, 2.8vw, 12px);
-                color: rgba(255, 255, 255, 0.25);
+                font-size: 11px;
+                color: rgba(255, 255, 255, 0.22);
                 cursor: pointer;
-                padding-bottom: 2px;
-                border-bottom: 1px solid transparent;
                 width: fit-content;
                 margin: 0 auto;
-                transition:
-                    color 0.2s,
-                    border-color 0.2s;
+                transition: color 0.2s;
                 -webkit-tap-highlight-color: transparent;
                 font-weight: 500;
+                /* área táctil grande para móvil */
+                padding: 6px 8px;
             }
 
             .close-link:hover {
-                color: rgba(255, 255, 255, 0.5);
-                border-color: rgba(255, 255, 255, 0.2);
+                color: rgba(255, 255, 255, 0.45);
             }
 
             /* ── SECURE NOTE ── */
@@ -574,56 +558,173 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                gap: 6px;
-                font-size: clamp(10px, 2.5vw, 11px);
-                color: rgba(255, 255, 255, 0.2);
-                margin-top: clamp(14px, 3vw, 18px);
-                padding-top: clamp(14px, 3vw, 18px);
+                gap: 5px;
+                font-size: 10px;
+                color: rgba(255, 255, 255, 0.18);
+                margin-top: 11px;
+                padding-top: 11px;
                 border-top: 1px solid var(--border);
                 font-weight: 500;
             }
 
-            /* ── LANDSCAPE ── */
-            @media (max-height: 500px) and (orientation: landscape) {
-                .popup {
-                    max-height: calc(100dvh - 16px);
-                }
+            /* ── TELÉFONOS MUY PEQUEÑOS (< 360px ancho o < 640px alto) ── */
+            @media (max-width: 359px) {
                 .header {
-                    padding: 14px 20px 12px;
+                    padding: 13px 14px 11px;
+                }
+                .header h1 {
+                    font-size: 18px;
                 }
                 .icon-wrap {
                     width: 40px;
                     height: 40px;
-                    margin-bottom: 10px;
+                    border-radius: 11px;
+                    margin-bottom: 8px;
+                }
+                .icon-wrap svg {
+                    width: 18px;
+                    height: 18px;
+                }
+                .discount-num {
+                    font-size: 44px;
+                }
+                .body {
+                    padding: 10px 12px 14px;
+                }
+                .discount-box {
+                    padding: 11px 12px;
+                    gap: 10px;
+                }
+                .timer-block .num {
+                    font-size: 22px;
+                }
+                .cta-btn {
+                    font-size: 13px;
+                    padding: 13px;
+                }
+            }
+
+            /* ── PANTALLAS MUY BAJAS (altura < 620px, ej. iPhone SE landscape o dispositivos compactos) ── */
+            @media (max-height: 620px) {
+                .header {
+                    padding: 12px 16px 10px;
+                }
+                .badge-row {
+                    margin-bottom: 8px;
+                }
+                .icon-wrap {
+                    width: 40px;
+                    height: 40px;
+                    margin-bottom: 8px;
+                }
+                .icon-wrap svg {
+                    width: 18px;
+                    height: 18px;
                 }
                 .header h1 {
                     font-size: 19px;
                 }
+                .header p {
+                    font-size: 10px;
+                    margin-top: 2px;
+                }
+                .body {
+                    padding: 10px 14px 12px;
+                }
                 .discount-box {
-                    padding: 12px 16px;
-                    margin-bottom: 10px;
+                    padding: 10px 12px;
+                    margin-bottom: 8px;
+                    gap: 11px;
                 }
                 .discount-num {
-                    font-size: 42px;
+                    font-size: 46px;
                 }
-                .trust-row {
-                    margin-bottom: 10px;
-                }
-                .timer-wrap {
-                    padding: 10px;
-                    margin-bottom: 12px;
-                }
-            }
-
-            @media (max-width: 359px) {
-                .discount-num {
-                    font-size: 40px;
+                .discount-divider {
+                    height: 36px;
                 }
                 .discount-info .title {
                     font-size: 12px;
                 }
+                .trust-row {
+                    margin-bottom: 8px;
+                    gap: 5px;
+                }
+                .trust-item {
+                    padding: 7px 4px;
+                }
+                .timer-wrap {
+                    padding: 9px 10px;
+                    margin-bottom: 9px;
+                }
+                .timer-label {
+                    margin-bottom: 7px;
+                }
                 .timer-block .num {
-                    font-size: 22px;
+                    font-size: 23px;
+                }
+                .timer-block {
+                    padding: 7px 4px;
+                }
+                .cta-btn {
+                    padding: 13px;
+                    margin-bottom: 8px;
+                    font-size: 13px;
+                    min-height: 44px;
+                }
+                .secure-note {
+                    margin-top: 8px;
+                    padding-top: 8px;
+                }
+            }
+
+            /* ── ALTURA MUY CRÍTICA (< 500px, landscape en teléfonos pequeños) ── */
+            @media (max-height: 500px) {
+                .icon-wrap {
+                    display: none;
+                }
+                .badge-row {
+                    margin-bottom: 5px;
+                }
+                .header {
+                    padding: 10px 14px 8px;
+                }
+                .header h1 {
+                    font-size: 17px;
+                }
+                .header p {
+                    display: none;
+                }
+                .body {
+                    padding: 8px 12px 10px;
+                }
+                .discount-box {
+                    padding: 8px 12px;
+                    margin-bottom: 7px;
+                }
+                .discount-num {
+                    font-size: 40px;
+                }
+                .trust-row {
+                    margin-bottom: 7px;
+                }
+                .trust-item {
+                    padding: 6px 3px;
+                }
+                .timer-wrap {
+                    padding: 7px 10px;
+                    margin-bottom: 8px;
+                }
+                .timer-block .num {
+                    font-size: 20px;
+                }
+                .cta-btn {
+                    padding: 11px;
+                    min-height: 42px;
+                    font-size: 13px;
+                    margin-bottom: 7px;
+                }
+                .secure-note {
+                    display: none;
                 }
             }
         </style>
