@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="google" value="notranslate" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- TikTok Pixel Code -->
+        <script>
+            !(function (w, d, t) {
+                w.TiktokAnalyticsObject = t;
+                var ttq = (w[t] = w[t] || []);
+                ttq.methods = [
+                    "page",
+                    "track",
+                    "identify",
+                    "instances",
+                    "debug",
+                    "on",
+                    "off",
+                    "once",
+                    "ready",
+                    "alias",
+                    "group",
+                    "enableCookie",
+                    "disableCookie",
+                ];
+                ttq.setAndDefer = function (t, e) {
+                    t[e] = function () {
+                        t.push(
+                            [e].concat(
+                                Array.prototype.slice.call(arguments, 0),
+                            ),
+                        );
+                    };
+                };
+                for (var i = 0; i < ttq.methods.length; i++) {
+                    ttq.setAndDefer(ttq, ttq.methods[i]);
+                }
+                ttq.load = function (e) {
+                    var r = "https://analytics.tiktok.com/i18n/pixel/events.js";
+                    var o = document.createElement("script");
+                    o.type = "text/javascript";
+                    o.async = true;
+                    o.src = r + "?sdkid=" + e + "&lib=" + t;
+                    var a = document.getElementsByTagName("script")[0];
+                    a.parentNode.insertBefore(o, a);
+                };
+                // load - agregamos nuestro pixel de tiktok
+                ttq.load("");
+                ttq.page();
+            })(window, document, "ttq");
+        </script>
+
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial;
+                background: #fff;
+                color: #000;
+            }
+            #modernModal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 350px;
+                background: #fff;
+                border-radius: 25px;
+                padding: 25px;
+                text-align: center;
+                z-index: 9999;
+                box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+            }
+            .modal-btn {
+                margin-top: 15px;
+                padding: 15px;
+                width: 100%;
+                border: none;
+                border-radius: 15px;
+                font-size: 18px;
+                font-weight: bold;
+                background: linear-gradient(90deg, #ff6b6b, #feca57);
+                color: #fff;
+                cursor: pointer;
+            }
+        </style>
+
+        <title>Estamos Cargando una Oferta para ti...</title>
+    </head>
+
+    <body>
+        <div id="modernModal">
+            <img src="" width="80" />
+            <h2>Promo Colombia</h2>
+            <p>Aprovecha nuestras promociones y descuentos solo para ti.</p>
+            <button class="modal-btn" onclick="redirectToOffer()">
+                Ver Oferta
+            </button>
+        </div>
+
+        <script>
+            // url al destino a redirigir
+            const offerUrl = "https://innokomarket.com";
+
+            function redirectToOffer() {
+                // Opcional: trackear clic en TikTok
+                if (typeof ttq !== "undefined") {
+                    ttq.track("ClickButton");
+                }
+                window.location.href = offerUrl;
+            }
+        </script>
+    </body>
+</html>
