@@ -53,51 +53,501 @@
         </script>
 
         <style>
-            body {
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
                 margin: 0;
-                font-family: Arial;
-                background: #fff;
-                color: #000;
+                padding: 0;
             }
-            #modernModal {
+
+            body {
+                min-height: 100vh;
+                background: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: "DM Sans", sans-serif;
+            }
+
+            .overlay {
                 position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 350px;
-                background: #fff;
-                border-radius: 25px;
-                padding: 25px;
-                text-align: center;
-                z-index: 9999;
-                box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+                inset: 0;
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(6px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 999;
+                animation: fadeIn 0.35s ease;
             }
-            .modal-btn {
-                margin-top: 15px;
-                padding: 15px;
-                width: 100%;
-                border: none;
-                border-radius: 15px;
-                font-size: 18px;
-                font-weight: bold;
-                background: linear-gradient(90deg, #ff6b6b, #feca57);
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            .popup {
+                width: min(92vw, 390px);
+                background: #fafaf8;
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 40px 100px rgba(0, 0, 0, 0.55);
+                animation: slideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+                position: relative;
+            }
+
+            @keyframes slideUp {
+                from {
+                    transform: translateY(36px) scale(0.97);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0) scale(1);
+                    opacity: 1;
+                }
+            }
+
+            /* TOP COLOR BAND — Colombia flag, clean solid stripes */
+            .flag-band {
+                display: flex;
+                height: 6px;
+            }
+            .flag-band div:nth-child(1) {
+                flex: 2;
+                background: #f4c400;
+            }
+            .flag-band div:nth-child(2) {
+                flex: 1;
+                background: #003087;
+            }
+            .flag-band div:nth-child(3) {
+                flex: 1;
+                background: #be0028;
+            }
+
+            .header {
+                background: #eee;
+                padding: 30px 28px 26px;
+                text-align: center;
+                position: relative;
+            }
+
+            /* SVG Tag icon — serious, professional */
+            .icon-wrap {
+                width: 56px;
+                height: 56px;
+                background: #f4c400;
+                border-radius: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 16px;
+            }
+
+            .header h1 {
+                font-family: "Arial", serif;
+                font-size: 26px;
+                font-weight: 900;
+                color: #111;
+                letter-spacing: -0.3px;
+                line-height: 1.2;
+            }
+
+            .header p {
+                color: #111;
+                font-size: 13px;
+                font-weight: 500;
+                margin-top: 6px;
+                letter-spacing: 0.3px;
+            }
+
+            .limited-tag {
+                display: inline-block;
+                background: #be0028;
                 color: #fff;
+                font-size: 10px;
+                font-weight: 600;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                padding: 3px 10px;
+                border-radius: 4px;
+                margin-bottom: 14px;
+            }
+
+            .body {
+                padding: 24px 26px;
+            }
+
+            /* Discount block — clean, no dashes, editorial */
+            .discount-box {
+                display: flex;
+                align-items: center;
+                background: #003087;
+                border-radius: 14px;
+                padding: 18px 22px;
+                margin-bottom: 20px;
+                gap: 18px;
+            }
+
+            .discount-num {
+                font-family: "Playfair Display", serif;
+                font-size: 58px;
+                font-weight: 900;
+                color: #f4c400;
+                line-height: 1;
+                white-space: nowrap;
+            }
+
+            .discount-info {
+                border-left: 2px solid #fff;
+                padding-left: 18px;
+            }
+
+            .discount-info .title {
+                font-size: 14px;
+                font-weight: 600;
+                color: #fff;
+                margin-bottom: 4px;
+            }
+
+            .discount-info .sub {
+                font-size: 12px;
+                color: #eee;
+                line-height: 1.5;
+            }
+
+            /* Trust row */
+            .trust-row {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+                gap: 8px;
+            }
+
+            .trust-item {
+                flex: 1;
+                background: #fff;
+                border: 1px solid #e8e8e4;
+                border-radius: 10px;
+                padding: 10px 8px;
+                text-align: center;
+            }
+
+            .trust-item svg {
+                display: block;
+                margin: 0 auto 5px;
+            }
+
+            .trust-item .t-label {
+                font-size: 10px;
+                font-weight: 600;
+                color: #444;
+                line-height: 1.3;
+            }
+
+            /* Timer */
+            .timer-label {
+                font-size: 11px;
+                font-weight: 600;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                color: #999;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .timer-row {
+                display: flex;
+                justify-content: center;
+                gap: 8px;
+                margin-bottom: 22px;
+            }
+
+            .timer-block {
+                background: #eee;
+                color: #fff;
+                border-radius: 10px;
+                padding: 10px 16px;
+                text-align: center;
+                min-width: 62px;
+            }
+
+            .timer-block .num {
+                font-family: "Playfair Display", serif;
+                font-size: 28px;
+                font-weight: 700;
+                line-height: 1;
+                color: #f4c400;
+            }
+
+            .timer-block .lbl {
+                font-size: 9px;
+                letter-spacing: 1px;
+                color: #555;
+                text-transform: uppercase;
+                margin-top: 2px;
+            }
+
+            /* CTA */
+            .cta-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+                padding: 16px;
+                background: #be0028;
+                color: #fff;
+                font-family: "DM Sans", sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+                border: none;
+                border-radius: 12px;
                 cursor: pointer;
+                transition:
+                    background 0.2s,
+                    transform 0.15s,
+                    box-shadow 0.2s;
+                box-shadow: 0 4px 18px rgba(190, 0, 40, 0.3);
+                margin-bottom: 12px;
+            }
+
+            .cta-btn:hover {
+                background: #a0001f;
+                transform: translateY(-1px);
+                box-shadow: 0 8px 24px rgba(190, 0, 40, 0.4);
+            }
+
+            .cta-btn:active {
+                transform: scale(0.98);
+            }
+
+            .close-link {
+                display: block;
+                text-align: center;
+                font-size: 12px;
+                color: #bbb;
+                cursor: pointer;
+                padding-bottom: 2px;
+                border-bottom: 1px solid transparent;
+                width: fit-content;
+                margin: 0 auto;
+                transition:
+                    color 0.2s,
+                    border-color 0.2s;
+            }
+
+            .close-link:hover {
+                color: #555;
+                border-color: #ccc;
+            }
+
+            .secure-note {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                font-size: 11px;
+                color: #bbb;
+                margin-top: 14px;
+                padding-top: 14px;
+                border-top: 1px solid #e8e8e4;
             }
         </style>
-
-        <title>Estamos Cargando una Oferta para ti...</title>
     </head>
-
     <body>
-        <div id="modernModal">
-            <img src="" width="80" />
-            <h2>Promo Colombia</h2>
-            <p>Aprovecha nuestras promociones y descuentos solo para ti.</p>
-            <button class="modal-btn" onclick="redirectToOffer()">
-                Ver Oferta
-            </button>
+        <div class="overlay" id="overlay">
+            <div class="popup">
+                <div class="flag-band">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+                <div class="header">
+                    <div class="limited-tag">Oferta exclusiva · Hoy</div>
+
+                    <!-- Professional price tag SVG icon -->
+                    <div class="icon-wrap">
+                        <svg
+                            width="28"
+                            height="28"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#111"
+                            stroke-width="2.2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path
+                                d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"
+                            />
+                            <line x1="7" y1="7" x2="7.01" y2="7" />
+                        </svg>
+                    </div>
+
+                    <h1>Promoción Colombia</h1>
+                    <p>Descuento reservado para clientes seleccionados</p>
+                </div>
+
+                <div class="body">
+                    <div class="discount-box">
+                        <div class="discount-num">50%</div>
+                        <div class="discount-info">
+                            <div class="title">Descuento en tu compra</div>
+                            <div class="sub">
+                                Envío sin costo incluido<br />Válido solo hoy
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="trust-row">
+                        <div class="trust-item">
+                            <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#BE0028"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path
+                                    d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                                />
+                            </svg>
+                            <div class="t-label">Pago<br />Seguro</div>
+                        </div>
+                        <div class="trust-item">
+                            <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#003087"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <rect x="1" y="3" width="15" height="13" />
+                                <polygon
+                                    points="16 8 20 8 23 11 23 16 16 16 16 8"
+                                />
+                                <circle cx="5.5" cy="18.5" r="2.5" />
+                                <circle cx="18.5" cy="18.5" r="2.5" />
+                            </svg>
+                            <div class="t-label">Envío<br />Rápido</div>
+                        </div>
+                        <div class="trust-item">
+                            <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#F4C400"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                                />
+                            </svg>
+                            <div class="t-label">4.9 / 5<br />Calificación</div>
+                        </div>
+                    </div>
+
+                    <div class="timer-label">La oferta expira en</div>
+                    <div class="timer-row">
+                        <div class="timer-block">
+                            <div class="num" id="hrs">02</div>
+                            <div class="lbl">Horas</div>
+                        </div>
+                        <div class="timer-block">
+                            <div class="num" id="min">59</div>
+                            <div class="lbl">Min</div>
+                        </div>
+                        <div class="timer-block">
+                            <div class="num" id="sec">59</div>
+                            <div class="lbl">Seg</div>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn" onclick="redirectToOffer()">
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="2.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <polyline points="20 12 20 22 4 22 4 12" />
+                            <rect x="2" y="7" width="20" height="5" />
+                            <path d="M12 22V7" />
+                            <path
+                                d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"
+                            />
+                            <path
+                                d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"
+                            />
+                        </svg>
+                        Ver mi descuento exclusivo
+                    </button>
+
+                    <div class="secure-note">
+                        <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#bbb"
+                            stroke-width="2"
+                        >
+                            <rect
+                                x="3"
+                                y="11"
+                                width="18"
+                                height="11"
+                                rx="2"
+                                ry="2"
+                            />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        Compra protegida · Sin compromisos
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <script>
+            let total = 2 * 3600 + 59 * 60 + 59;
+            const h = document.getElementById("hrs");
+            const m = document.getElementById("min");
+            const s = document.getElementById("sec");
+
+            setInterval(() => {
+                if (total <= 0) return;
+                total--;
+                h.textContent = String(Math.floor(total / 3600)).padStart(
+                    2,
+                    "0",
+                );
+                m.textContent = String(
+                    Math.floor((total % 3600) / 60),
+                ).padStart(2, "0");
+                s.textContent = String(total % 60).padStart(2, "0");
+            }, 1000);
+        </script>
 
         <script>
             // url al destino a redirigir
