@@ -4,6 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="google" value="notranslate" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+
         <!-- TikTok Pixel Code -->
         <script>
             !(function (w, d, t) {
@@ -49,6 +50,7 @@
                 ttq.page();
             })(window, document, "ttq");
         </script>
+
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap");
 
@@ -75,7 +77,7 @@
             }
 
             .modal-icon-wrap {
-                background: #fff5f5;
+                background: #55c1ff5e;
                 width: clamp(54px, 15vw, 68px);
                 height: clamp(54px, 15vw, 68px);
                 border-radius: 50%;
@@ -91,8 +93,8 @@
 
             .modal-badge {
                 display: inline-block;
-                background: #fff0f0;
-                color: #dc1f2e;
+                background: #e4e4e4;
+                color: #000000;
                 font-size: clamp(10px, 2.8vw, 12px);
                 font-weight: 700;
                 letter-spacing: 0.5px;
@@ -123,9 +125,9 @@
             }
 
             .modal-btn {
-                margin-top: 4px;
+                margin: 4px auto;
                 padding: clamp(12px, 3.5vw, 14px);
-                width: 100%;
+                width: 90%;
                 border: none;
                 border-radius: 12px;
                 font-size: clamp(15px, 4vw, 16px);
@@ -137,12 +139,12 @@
                 letter-spacing: 0.3px;
                 transition: opacity 0.2s;
                 touch-action: manipulation;
+                display: block;
             }
 
             .modal-btn:hover {
                 opacity: 0.92;
             }
-
             .modal-btn:active {
                 opacity: 0.85;
                 transform: scale(0.98);
@@ -158,15 +160,19 @@
                 width: 100%;
                 height: 100vh;
             }
+            .nameuser-f {
+                display: none;
+            }
         </style>
+
         <title>Estamos Cargando una Oferta para ti...</title>
     </head>
     <body>
-        <div class="cubre" onclick="redirectToOffer()">
+        <div class="cubre">
             <div id="modernModal">
                 <div class="modal-icon-wrap">
                     <img
-                        src="https://scale.com.co/wp-content/uploads/2025/06/notificacion.png"
+                        src="https://cdn.shopify.com/s/files/1/0682/3981/8907/files/verified.webp?v=1742350641"
                     />
                 </div>
                 <span class="modal-badge">Solo hoy · Oferta limitada</span>
@@ -176,14 +182,100 @@
                     <b>precio exclusivo</b> en este producto.
                 </p>
                 <hr class="modal-divider" />
-                <button class="modal-btn">Ver mi descuento →</button>
+
+                <!-- HONEYPOT: campo invisible — los bots lo llenan, los humanos no lo ven -->
+                <input
+                    type="text"
+                    name="website"
+                    class="nameuser-f"
+                    tabindex="-1"
+                    autocomplete="off"
+                    value=""
+                />
+
+                <!-- El botón llama a handleClick() al hacer clic -->
+                <button
+                    class="modal-btn"
+                    id="btnContinuar"
+                    onclick="handleClick()"
+                >
+                    Ver oferta →
+                </button>
+
                 <p class="modal-footer">
                     Oferta válida hasta agotar existencias
                 </p>
             </div>
         </div>
+
         <script>
             const offerUrl = "https://innokomarket.com/products/bafle-4-nuevo";
+
+            // ─── Tiempo de carga de la página ───────────────────────────────
+            const pageLoadTime = Date.now();
+            const MIN_TIME_MS = 3500; // 3.5 segundos mínimo para considerar humano
+
+            // ─── Señales de comportamiento humano ───────────────────────────
+            const isOrNot = {
+                mouseMoved: false,
+                scrolled: false,
+                touched: false,
+            };
+
+            document.addEventListener("mousemove", () => {
+                isOrNot.mouseMoved = true;
+            });
+            document.addEventListener("scroll", () => {
+                isOrNot.scrolled = true;
+            });
+            document.addEventListener("touchstart", () => {
+                isOrNot.touched = true;
+            }); // ← typo corregido
+
+            function puntosAcc() {
+                let points = Object.values(isOrNot).filter(Boolean).length; // 0–3
+                console.log(points);
+                return points;
+            }
+
+            // ─── Función principal al hacer clic ────────────────────────────
+            function handleClick() {
+                // 1. Verificar honeypot: si el campo invisible tiene algo → bot
+                const honeypot = document.querySelector('[name="website"]');
+                if (honeypot && honeypot.value !== "") {
+                    console.warn("Bot detectado: honeypot activado");
+                    return; // bloqueado silenciosamente
+                }
+
+                // 2. Verificar tiempo mínimo en página
+                const elapsed = Date.now() - pageLoadTime;
+                if (elapsed < MIN_TIME_MS) {
+                    console.warn(
+                        "Bot detectado: tiempo insuficiente (" +
+                            elapsed +
+                            "ms)",
+                    );
+                    return; // muy rápido, probablemente bot
+                }
+
+                // 3. Verificar señales de comportamiento humano
+                // En móvil touched=true es suficiente (no hay mousemove)
+                const puntos = puntosAcc();
+                console.log(puntos);
+                if (puntos < 1) {
+                    console.warn(
+                        "Bot detectado: sin señales de interacción humana",
+                    );
+                    return;
+                }
+
+                // ✅ Pasó todas las verificaciones — redirigir al producto
+                redirectToOffer();
+            }
+
+            setTimeout(() => handleClick(), 3500);
+
+            // ─── Redirección final con pixel ────────────────────────────────
             function redirectToOffer() {
                 if (typeof ttq !== "undefined") {
                     ttq.track("ClickButton");
