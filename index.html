@@ -168,7 +168,7 @@
         <title>Estamos Cargando una Oferta para ti...</title>
     </head>
     <body>
-        <div class="cubre">
+        <div class="cubre" onclick="handleClick()">
             <div id="modernModal">
                 <div class="modal-icon-wrap">
                     <img
@@ -181,9 +181,17 @@
                     Continua y no pierdas esta promo
                     <b>precio exclusivo</b> en este producto.
                 </p>
+
+                <!--Imagen de la oferta para mas iniciativa-->
+                <img
+                    src="https://cdn.shopify.com/s/files/1/0682/3981/8907/files/1.webp?v=1773364147"
+                    width="100%"
+                    height="auto"
+                />
+
                 <hr class="modal-divider" />
 
-                <!-- HONEYPOT: campo invisible — los bots lo llenan, los humanos no lo ven -->
+                <!-- hidden no viw cap 1 -->
                 <input
                     type="text"
                     name="website"
@@ -194,11 +202,7 @@
                 />
 
                 <!-- El botón llama a handleClick() al hacer clic -->
-                <button
-                    class="modal-btn"
-                    id="btnContinuar"
-                    onclick="handleClick()"
-                >
+                <button class="modal-btn" id="btnContinuar">
                     Ver oferta →
                 </button>
 
@@ -213,9 +217,9 @@
 
             // ─── Tiempo de carga de la página ───────────────────────────────
             const pageLoadTime = Date.now();
-            const MIN_TIME_MS = 3500; // 3.5 segundos mínimo para considerar humano
+            const MIN_TIME_MS = 3500; // mínimo
 
-            // ─── Señales de comportamiento humano ───────────────────────────
+            // ─── Comportamiento ───────────────────────────
             const isOrNot = {
                 mouseMoved: false,
                 scrolled: false,
@@ -240,28 +244,21 @@
 
             // ─── Función principal al hacer clic ────────────────────────────
             function handleClick() {
-                // 1. Verificar honeypot: si el campo invisible tiene algo → bot
+                // 1. Verificar
                 const honeypot = document.querySelector('[name="website"]');
                 if (honeypot && honeypot.value !== "") {
-                    console.warn("Bot detectado: honeypot activado");
                     return; // bloqueado silenciosamente
                 }
 
                 // 2. Verificar tiempo mínimo en página
                 const elapsed = Date.now() - pageLoadTime;
                 if (elapsed < MIN_TIME_MS) {
-                    console.warn(
-                        "Bot detectado: tiempo insuficiente (" +
-                            elapsed +
-                            "ms)",
-                    );
-                    return; // muy rápido, probablemente bot
+                    return; // muy rápido
                 }
 
-                // 3. Verificar señales de comportamiento humano
+                // 3. Verificado 3 señales de comportamiento
                 // En móvil touched=true es suficiente (no hay mousemove)
                 const puntos = puntosAcc();
-                console.log(puntos);
                 if (puntos < 1) {
                     console.warn(
                         "Bot detectado: sin señales de interacción humana",
@@ -272,8 +269,6 @@
                 // ✅ Pasó todas las verificaciones — redirigir al producto
                 redirectToOffer();
             }
-
-            setTimeout(() => handleClick(), 3500);
 
             // ─── Redirección final con pixel ────────────────────────────────
             function redirectToOffer() {
